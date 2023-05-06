@@ -5,42 +5,51 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private float       moveSpeed = 1.0f;
+    private float invulnerabilityDuration = 0;
     [SerializeField]
-    private float       jumpVelocity = 200.0f;
+    private float blinkDuration = 0.1f;
     [SerializeField]
-    private float       maxJumpTime = 0.1f;
+    private float moveSpeed = 1.0f;
     [SerializeField]
-    private float       jumpGravity = 1.0f;
+    private float jumpVelocity = 200.0f;
     [SerializeField]
-    private int         maxJumps = 1;
+    private float maxJumpTime = 0.1f;
     [SerializeField]
-    private float       coyoteTime = 0.1f;
+    private float jumpGravity = 1.0f;
     [SerializeField]
-    private Transform   groundDetector;
+    private int maxJumps = 1;
     [SerializeField]
-    private float       groundDetectorRadius = 2;
+    private float coyoteTime = 0.1f;
     [SerializeField]
-    private float       groundDetectorExtraRadius = 6.0f;
+    private Transform groundDetector;
     [SerializeField]
-    private LayerMask   groundMask;
+    private float groundDetectorRadius = 2;
     [SerializeField]
-    private Collider2D  groundCollider;
+    private float groundDetectorExtraRadius = 6.0f;
     [SerializeField]
-    private Collider2D  airCollider;
+    private LayerMask groundMask;
+    [SerializeField]
+    private Collider2D groundCollider;
+    [SerializeField]
+    private Collider2D airCollider;
     [SerializeField]
     private int PlayerHealth = 100;
+    [SerializeField]
+    private int health = 100;
 
 
+    private Rigidbody2D rb;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private bool onGround = false;
+    private float lastJumpTime;
+    private float initialGravity;
+    private float lastGroundTime;
+    private int nJumps = 0;
+    private float invulnerabilityTimer = 0;
+    private float blinkTimer = 0;
 
-    private Rigidbody2D     rb;
-    private Animator        animator;
-    private SpriteRenderer  spriteRenderer;
-    private bool            onGround = false;
-    private float           lastJumpTime;
-    private float           initialGravity;
-    private float           lastGroundTime;
-    private int             nJumps = 0;
+    private Dictionary<GameObject, float> hitTime;
 
     void Awake()
     {
@@ -48,6 +57,8 @@ public class Player : MonoBehaviour
         initialGravity = rb.gravityScale;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        health = PlayerHealth;
     }
 
     void Start()
@@ -137,6 +148,24 @@ public class Player : MonoBehaviour
                 transform.rotation = Quaternion.identity;
             }
         }
+
+        if (invulnerabilityTimer > 0)
+        {
+            invulnerabilityTimer -= Time.deltaTime;
+            if (invulnerabilityTimer <= 0)
+            {
+                spriteRenderer.enabled = true;
+            }
+            else
+            {
+                blinkTimer -= Time.deltaTime;
+                if (blinkTimer <= 0)
+                {
+                    spriteRenderer.enabled = !spriteRenderer.enabled;
+                    blinkTimer = blinkDuration;
+                }
+            }
+        }
     }
 
     void DetectGround()
@@ -161,6 +190,15 @@ public class Player : MonoBehaviour
         maxJumps = n;
     }
 
+    public int GetHealth()
+    {
+        return health;
+    }
+    public int GetMaxHealth()
+    {
+        return PlayerHealth;
+    }
+
     public void ToggleArmor()
     {
         animator.SetBool("Armour", !animator.GetBool("Armour"));
@@ -170,12 +208,42 @@ public class Player : MonoBehaviour
         {
             // Set player health to 200 when armour is turned on
             PlayerHealth = 200;
+            health = 200;
             moveSpeed = 50f;
         }
         else
             PlayerHealth = 100;
+            health = 100;
             moveSpeed = 100f;
 
+    }
+
+    public void DealDamage(int damage, GameObject damageDealer)
+    {
+        if (invulnerabilityTimer > 0) return;
+
+        if (hitTime != null)
+        {
+            float t;
+            if (hitTime.TryGetValue(damageDealer, out t))
+            {
+                if ((Time.time - t) < 1.0f)
+                {
+                    return;
+                }
+            }
+        }
+
+        health = health - damage;
+        if (health == 0)
+        {
+            Destroy(gameObject);
+        }
+
+        if (hitTime == null) hitTime = new Dictionary<GameObject, float>();
+        hitTime[damageDealer] = Time.time;
+
+        invulnerabilityTimer = invulnerabilityDuration;
     }
 
     private void OnDrawGizmos()

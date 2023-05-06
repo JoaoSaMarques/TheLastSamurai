@@ -1774,6 +1774,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5051aebaa8a46484db81d823e0a14b61, type: 3}
+--- !u!114 &1041791932 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 669583141438667328, guid: 5051aebaa8a46484db81d823e0a14b61, type: 3}
+  m_PrefabInstance: {fileID: 1041791931}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5759f4297174f444c8cab87a37facf31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1344324636
 GameObject:
   m_ObjectHideFlags: 0
@@ -2235,8 +2246,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -501.1547, y: 295.73883}
-  m_SizeDelta: {x: 279.691, y: 128.282}
+  m_AnchoredPosition: {x: -533.5198, y: 310.5828}
+  m_SizeDelta: {x: 214.961, y: 98.593}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1484152109
 MonoBehaviour:
@@ -2251,12 +2262,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthSprites:
-  - {fileID: 21300000, guid: 290a14f500000e94e8717dd11f423673, type: 3}
-  - {fileID: 21300000, guid: 290a14f500000e94e8717dd11f423673, type: 3}
-  - {fileID: 21300000, guid: 290a14f500000e94e8717dd11f423673, type: 3}
-  - {fileID: 21300000, guid: 290a14f500000e94e8717dd11f423673, type: 3}
-  - {fileID: 21300000, guid: 290a14f500000e94e8717dd11f423673, type: 3}
-  healthImage: {fileID: 0}
+  - {fileID: -16012073, guid: 9ce010fdb30bee64fbb806060f033fe2, type: 3}
+  - {fileID: -1175126825, guid: 9ce010fdb30bee64fbb806060f033fe2, type: 3}
+  - {fileID: -2133556468, guid: 9ce010fdb30bee64fbb806060f033fe2, type: 3}
+  - {fileID: -1438074354, guid: 9ce010fdb30bee64fbb806060f033fe2, type: 3}
+  - {fileID: 998964266, guid: 9ce010fdb30bee64fbb806060f033fe2, type: 3}
+  - {fileID: 2102057218, guid: 9ce010fdb30bee64fbb806060f033fe2, type: 3}
+  healthImage: {fileID: 1484152110}
+  player: {fileID: 1041791932}
 --- !u!114 &1484152110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2277,7 +2290,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 290a14f500000e94e8717dd11f423673, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
