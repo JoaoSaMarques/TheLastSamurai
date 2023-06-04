@@ -1702,7 +1702,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091803794}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -29, y: 61, z: 10}
+  m_LocalPosition: {x: 14, y: -69, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1750,8 +1750,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4b6ddb85590e1e04487c7776f4dcd6c4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 60f06371ab8fd7e4b84db33658c64f74, type: 3}
+  m_Color: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3775,7 +3775,7 @@ Tilemap:
     m_Data: {r: 7.2321e-41, g: 7.2321e-41, b: 7.2321e-41, a: 7.2321e-41}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
   m_Origin: {x: -11, y: -26, z: 0}
   m_Size: {x: 110, y: 36, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}

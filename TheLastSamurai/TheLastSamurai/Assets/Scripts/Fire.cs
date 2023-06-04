@@ -6,26 +6,35 @@ public class Fire : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
-    public float firerate;
-    float nextFire;
+    public float fireRate;
+    private float nextFire;
+    private bool canShoot = true;
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && canShoot)
         {
-            Invoke("Shoot", 1.2f);
-
+            canShoot = false;
+            Invoke("Shoot", 0.3f);
         }
     }
 
-    void Shoot ()
+    void Shoot()
     {
-        if (Time.time > nextFire) 
+        if (Time.time > nextFire)
         {
-            
-            nextFire = Time.time + firerate;
+            nextFire = Time.time + fireRate;
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         }
-        
-    }    
+
+        // Enable shooting again after the animation has finished
+        StartCoroutine(EnableShootingAfterAnimation());
+    }
+
+    IEnumerator EnableShootingAfterAnimation()
+    {
+        // Assuming the "PlayerAttack1" animation has a duration of 1 second
+        yield return new WaitForSeconds(0.8f);
+        canShoot = true;
+    }
 }
