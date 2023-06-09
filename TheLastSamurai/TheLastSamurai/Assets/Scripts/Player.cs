@@ -52,7 +52,8 @@ public class Player : MonoBehaviour
 
     private Dictionary<GameObject, float> hitTime;
 
-    
+    [SerializeField] private AudioSource audioSourceSteps;
+    [SerializeField] private AudioSource audioSourceShot;
 
     void Awake()
     {
@@ -60,6 +61,7 @@ public class Player : MonoBehaviour
         initialGravity = rb.gravityScale;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
     }
 
     void Start()
@@ -111,12 +113,23 @@ public class Player : MonoBehaviour
         if ((Input.GetMouseButtonDown(0)))
         {
             animator.SetTrigger("Attack");
+            audioSourceShot.Play();
         }
 
         groundCollider.enabled = onGround;
         airCollider.enabled = !onGround;
 
         currentVelocity.x = speedX * moveSpeed;
+
+        if (speedX != 0 && !audioSourceSteps.isPlaying)
+        {
+            audioSourceSteps.Play();
+        }
+        else if (speedX == 0 || !onGround)
+        {
+            audioSourceSteps.Stop();
+        }
+
 
         if ((Input.GetButtonDown("Jump")) && (nJumps > 0))
         {
@@ -138,7 +151,7 @@ public class Player : MonoBehaviour
 
         rb.velocity = currentVelocity;
 
-        // Change visuals
+       
         animator.SetFloat("AbsVelocityX", Mathf.Abs(currentVelocity.x));
         animator.SetFloat("VelocityY", currentVelocity.y);
         animator.SetBool("OnGround", onGround);

@@ -81,7 +81,7 @@ public class Fire : MonoBehaviour
         }
         else
         {
-            return 0.8f; // Return the regular wait duration if the player doesn't have armor
+            return 0.85f; // Return the regular wait duration if the player doesn't have armor
         }
     }
 }
