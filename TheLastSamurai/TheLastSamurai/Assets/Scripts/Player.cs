@@ -52,6 +52,8 @@ public class Player : MonoBehaviour
 
     private Dictionary<GameObject, float> hitTime;
 
+    
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -62,6 +64,20 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        animator.SetBool("Armour", GameManager.Instance.GetPlayerArmorState());
+        if (animator.GetBool("Armour"))
+        {
+            // Apply the appropriate settings when armor is enabled
+            PlayerHealth = 200;
+            health = 200;
+            moveSpeed = 50f;
+        }
+        else
+        {
+            PlayerHealth = 100;
+            health = 100;
+            moveSpeed = 100f;
+        }
     }
 
     // Update is called once per frame
@@ -200,12 +216,12 @@ public class Player : MonoBehaviour
 
     public void ToggleArmor()
     {
-        animator.SetBool("Armour", !animator.GetBool("Armour"));
-        bool currentArmourState = animator.GetBool("Armour");
+        bool currentArmorState = !animator.GetBool("Armour");
+        GameManager.Instance.SetPlayerArmorState(currentArmorState);
+        animator.SetBool("Armour", currentArmorState);
 
-        if (currentArmourState == true)
+        if (currentArmorState)
         {
-            // Set player health to 200 when armour is turned on
             PlayerHealth = 200;
             health = 200;
             moveSpeed = 50f;
@@ -215,9 +231,7 @@ public class Player : MonoBehaviour
             PlayerHealth = 100;
             health = 100;
             moveSpeed = 100f;
-
         }
-
     }
 
     public bool IsArmor()
