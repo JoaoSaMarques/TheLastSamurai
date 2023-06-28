@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LowfiAssets_5
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 118833147, guid: 79b720d7cba066548b38c3ffcd527440, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5943396, g: 0.3894853, b: 0.07513349, a: 1}
   m_Transform:
     e00: 1
     e01: 0
